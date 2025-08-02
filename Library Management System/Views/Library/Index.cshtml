@@ -1,0 +1,25 @@
+﻿@model library
+<table class="customer-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Date of Book Borrowed</th>
+            <th>Date of Returned Book</th>
+        </tr>
+    </thead>
+
+@foreach (var book in Model.ListOfBooks)
+
+                {
+                    <tr>
+                        <td>@book.Title </td>
+            <td>@book.author.AuthorName</td>
+                        <td>@book.Genre</td>
+                        <td>@book.BookBorrowed</td>
+                        <td>@book.ReturnedBook</td>
+
+
+                    </tr>
+                }</table>
