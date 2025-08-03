@@ -1,25 +1,144 @@
-﻿@model library
-<table class="customer-table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Genre</th>
-            <th>Date of Book Borrowed</th>
-            <th>Date of Returned Book</th>
-        </tr>
-    </thead>
+﻿@model Library_Management_System.Models.Library
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>LIBRARY DASHBORAD</h1>
 
-@foreach (var book in Model.ListOfBooks)
-
+    <div class="table-container">
+        <table class="customer-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th>Date Borrowed</th>
+                    <th>Date Returned</th>
+                    <th>Status</th>
+                    <th>Borrowed By</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model.ListOfBooks)
                 {
                     <tr>
-                        <td>@book.Title </td>
-            <td>@book.author.AuthorName</td>
+                        <td>@book.Title</td>
+                        <td>@book.Author.AuthorName</td>
+
                         <td>@book.Genre</td>
-                        <td>@book.BookBorrowed</td>
-                        <td>@book.ReturnedBook</td>
-
-
+                        <td>@(book.BookBorrowed?.ToString("MMM dd, yyyy") ?? "—")</td>
+                        <td>@(book.ReturnedBook?.ToString("MMM dd, yyyy") ?? "—")</td>
+                        <td>
+                            @if (book.BookBorrowed == null)
+                            {
+                                <span class="status-available">Available</span>
+                            }
+                            else if (book.ReturnedBook == null)
+                            {
+                                <span class="status-borrowed">Borrowed</span>
+                            }
+                            else
+                            {
+                                <span class="status-returned">Returned</span>
+                            }
+                        </td>
+                        
+                        <td>@(book.BorrowedBy?.FullName ?? "—")</td>
                     </tr>
-                }</table>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #fef6ff, #e0f7fa);
+        color: #333;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        border-radius: 20px;
+        background: #fff0f6;
+        padding: 25px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    table.customer-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+        table.customer-table thead {
+            background: #ff85c0;
+            color: white;
+        }
+
+        table.customer-table th, table.customer-table td {
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        table.customer-table tbody tr:nth-child(even) {
+            background-color: #fff0f6;
+        }
+
+        table.customer-table tbody tr:nth-child(odd) {
+            background-color: #f8f0fc;
+        }
+
+        table.customer-table tbody tr:hover {
+            background-color: #d0ebff;
+            transition: 0.3s;
+        }
+
+    .status-available {
+        background-color: #d3f9d8;
+        color: #2b8a3e;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-weight: bold;
+    }
+
+    .status-borrowed {
+        background-color: #ffe3e3;
+        color: #c92a2a;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-weight: bold;
+    }
+
+    .status-returned {
+        background-color: #e7f5ff;
+        color: #1c7ed6;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-weight: bold;
+    }
+
+
+
+    {
+        margin: 20px;
+    }
+
+    table.customer-table th, table.customer-table td {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 46px;
+        font-weight: bold;
+        text-align: center;
+        color: #E75480;
+        font-family: Cambria;
+        margin-bottom: 30px;
+    }
+
+    }
+</style>
